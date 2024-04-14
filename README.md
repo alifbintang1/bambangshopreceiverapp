@@ -85,5 +85,8 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. Penggunaan RwLock<> dibandingkan dengan Mutex<> dalam kasus ini diperlukan karena RwLock<> memungkinkan banyak thread untuk membaca variabel secara bersamaan, sementara Mutex<> hanya mengizinkan satu thread untuk menggunakan variabel pada suatu waktu. Dalam konteks ini, Vec of Notifications akan sering dibaca oleh banyak thread tanpa penulisan. Jika menggunakan Mutex<>, hal tersebut akan menghambat kinerja karena hanya satu thread yang dapat mengakses variabel pada satu waktu.
+
+2. Penggunaan library external lazy_static digunakan untuk membuat variabel menjadi singleton, yang berarti hanya ada satu instance dari variabel tersebut dalam program. Selain itu, Rust membuat variabel static menjadi immutable secara default, berbeda dengan Java yang memungkinkan perubahan nilai variabel melalui fungsi statis. Hal ini dilakukan oleh Rust untuk menjamin keamanan thread saat digunakan dalam lingkungan multithreading, karena data yang immutable lebih mudah dikelola dan aman dari race condition.
 
 #### Reflection Subscriber-2
